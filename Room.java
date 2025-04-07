@@ -12,4 +12,5 @@ public class Room {
     public String getCombo(){
         return floor+wing+roomNum;
     }
+
 }

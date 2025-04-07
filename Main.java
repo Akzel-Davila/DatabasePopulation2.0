@@ -79,9 +79,27 @@ public class Main {
                 "Chinese", "AP Chinese Language and Culture", "French", "AP French Language and Culture", "German", "AP German Language and Culture", "Italian", "AP Italian Language and Culture", "Spanish", "Spanish IV", "AP Spanish Language and Culture", "AP Spanish Literature and Culture"
         };
         ArrayList<String> allRooms = makeRooms();
+        ArrayList<String> allRoomsPeriod = new ArrayList<String>();
+        for (int i = 0; i < allRooms.size(); i++){
+            String roomPeriod = allRooms.get(i);
+            for (int j = 1; j <= 10; j++){
+                allRoomsPeriod.add(roomPeriod + " " + j);
+            }
+
+        }
+        int s_id = 1;
         for (int i = 0; i < courses.length; i ++){
-
-
+            int offerings = (int)(Math.random()*5) + 1 ;
+            for (int j = 0; j < offerings; j++){
+                String randRoom = allRoomsPeriod.get((int) (Math.random() * (allRoomsPeriod.size() +1) ));
+                String room = randRoom.substring(0, randRoom.indexOf(" "));
+                String period = randRoom.substring(randRoom.indexOf(" ") +1 );
+                int r_id =  allRooms.indexOf(room) +1;
+                int c_id = i;
+                //System.out.println("INSERT INTO Sections(s_id, r_id, period, c_id) VALUES (" + s_id + "," + r_id + "," + period + "," + c_id + ");" );
+                System.out.println(s_id + "," + r_id + "," + period + "," + c_id);
+                s_id ++;
+            }
         }
 
 
