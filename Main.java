@@ -1,10 +1,7 @@
 import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
 
@@ -69,7 +66,7 @@ public class Main {
 
     }
 
-    public static void makeSections() {
+    public static int makeSections() {
         String[] courses = {"Anatomy", "AP Biology", "AP Environmental", "AP Psychology", "Bio-organic Chemistry", "Genetics", "Introduction to Neuroscience", "Living Environment", "Living Environment Lab", "Environmental sustainability",
                 "Regents Chemistry", "AP Chemistry", " Organic Chemistry", "MICA", "Quantitative Analysis", "Forensics", "Regents Physics", "Regents Physics Labs", "AP Physics 1", "AP Physics 2", "AP Physics C Mechanics", "AP Physics C E/M", "Astronomy", "Modern Physics",
                 "Common Core Algebra", "Common Core Geometry", "Common Core Algebra II", "Pre-Calculus", "Calculus", "AP Calculus AB", "AP Calculus BC", "AP Statistics", "Multivariable Calculus", "Math Research", "Linear Algebra",
@@ -96,12 +93,12 @@ public class Main {
                 String period = randRoom.substring(randRoom.indexOf(" ") +1 );
                 int r_id =  allRooms.indexOf(room) +1;
                 int c_id = i;
-                //System.out.println("INSERT INTO Sections(s_id, r_id, period, c_id) VALUES (" + s_id + "," + r_id + "," + period + "," + c_id + ");" );
-                System.out.println(s_id + "," + r_id + "," + period + "," + c_id);
+                System.out.println("INSERT INTO Sections(s_id, r_id, period, c_id) VALUES (" + s_id + "," + r_id + "," + period + "," + c_id + ");" );
                 s_id ++;
             }
-        }
 
+        }
+        return s_id++;
 
     }
 
@@ -136,13 +133,51 @@ public class Main {
         }
 
     }
+    public static void makeAssignments(){
+        String[] courses = {"Anatomy", "AP Biology", "AP Environmental", "AP Psychology", "Bio-organic Chemistry", "Genetics", "Introduction to Neuroscience", "Living Environment", "Living Environment Lab", "Environmental sustainability",
+                "Regents Chemistry", "AP Chemistry", " Organic Chemistry", "MICA", "Quantitative Analysis", "Forensics", "Regents Physics", "Regents Physics Labs", "AP Physics 1", "AP Physics 2", "AP Physics C Mechanics", "AP Physics C E/M", "Astronomy", "Modern Physics",
+                "Common Core Algebra", "Common Core Geometry", "Common Core Algebra II", "Pre-Calculus", "Calculus", "AP Calculus AB", "AP Calculus BC", "AP Statistics", "Multivariable Calculus", "Math Research", "Linear Algebra",
+                "AP Computer Science Principles", "AP Computer Science A", "Big Data: Warehousing & Analytics", "Computer Science & Engineering Home", "Cyber Security", "Digital Electronics PLTW", "Digital Systems Design", "Electrical Engineering Major", "Fundamentals of IT Infrastructure", "Green Building Construction", "PLTW EDD", "Statics", "Strength of Materials", "Web Development",
+                "Physical Education", "Health Education", "9th Grade English", "10th Grade English", "10th Grade: AP Capstone Seminar", "11th Grade English", "11th Grade: AP English Language & Composition", "12th Grade: AP Capstone Research", "12th Grade: AP English Literature & Composition", "12th Grade: Creative Writing", "12th Grade: Drama", "12th Grade: Film & Literature", "12th Grade: Journalism", "12th Grade: Life, Love & Death", "12th Grade: Mystery, Horror & the Supernatural", "12th Grade: Science Fiction & Fantasy", "12th Grade: Yearbook", "The Survey",
+                "9th Grade Global", "10th Grade Regents Global History", "AP World History", "AP European History", "11th Grade Regents American History", "AP American History", "Participation in Government", "AP US Government Economics", "AP Macroeconomics", "AP Microeconomics", "AP Comparative Government", "AP Psychology", "AP Human Geography Sociology", "Cultural Anthropology", "Physical Anthropology",
+                "Chinese", "AP Chinese Language and Culture", "French", "AP French Language and Culture", "German", "AP German Language and Culture", "Italian", "AP Italian Language and Culture", "Spanish", "Spanish IV", "AP Spanish Language and Culture", "AP Spanish Literature and Culture"
+        };
 
+        int totalSections = makeSections();
+        int as_id = 1;
+        ArrayList<Integer> usedSections  = new ArrayList<Integer>();
+        for (int i = 0; i< courses.length; i++){
+            int randSection = (int) (Math.random() * (totalSections +1));
+            while (usedSections.contains(randSection)){
+                randSection = (int) (Math.random() * (totalSections +1));
+            }
+            usedSections.add(randSection);
+            for (int j = 1; j <= 15; j++){
+                if (j <= 12)
+                {
+                    System.out.println("INSERT INTO Assignments(as_id, s_id, as_type_id, Assignment_Type_Name) VALUES (" + as_id + "," + randSection + ",2," + "Minor" + j + ");");
+                    as_id++;
+                }
+                else
+                {
+                    System.out.println("INSERT INTO Assignments(as_id, s_id, as_type_id, Assignment_Type_Name) VALUES (" + as_id + "," + randSection + ",1," + "Major" + (j-12) +");");
+                    as_id++;
+                }
+            }
 
+        }
+
+        }
+
+    public static void makeGrades(){
+        for (int i = 0);
+
+    }
 
 
     public static void main(String[] args) {
         ArrayList<String> fileData = getFileData("Teachers.txt");
         System.out.println(fileData);
-        makeSections();
+        makeAssignments();
     }
 }
