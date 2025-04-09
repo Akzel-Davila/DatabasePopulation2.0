@@ -133,7 +133,7 @@ public class Main {
         }
 
     }
-    public static void makeAssignments(){
+    public static int makeAssignments(){
         String[] courses = {"Anatomy", "AP Biology", "AP Environmental", "AP Psychology", "Bio-organic Chemistry", "Genetics", "Introduction to Neuroscience", "Living Environment", "Living Environment Lab", "Environmental sustainability",
                 "Regents Chemistry", "AP Chemistry", " Organic Chemistry", "MICA", "Quantitative Analysis", "Forensics", "Regents Physics", "Regents Physics Labs", "AP Physics 1", "AP Physics 2", "AP Physics C Mechanics", "AP Physics C E/M", "Astronomy", "Modern Physics",
                 "Common Core Algebra", "Common Core Geometry", "Common Core Algebra II", "Pre-Calculus", "Calculus", "AP Calculus AB", "AP Calculus BC", "AP Statistics", "Multivariable Calculus", "Math Research", "Linear Algebra",
@@ -166,11 +166,23 @@ public class Main {
             }
 
         }
-
+        return as_id;
         }
 
     public static void makeGrades(){
-        for (int i = 0);
+        int totalAssign = makeAssignments();
+
+        for (int i = 1; i<= 5000; i++){
+            int randAssign = (int) (Math.random() * totalAssign + 1);
+            while (randAssign % 15 != 0){
+                randAssign = (int) (Math.random() * totalAssign + 1);
+            }
+            for (int j = 0; j<15; j++) {
+                int randGrade = (int) ((Math.random() * 26) + 75);
+                System.out.println("INSERT INTO Student_Grades(p_id, as_id, Grade) VALUES (" + i + "," + (randAssign +j)+ "," + randGrade +");");
+            }
+
+        }
 
     }
 
@@ -178,6 +190,6 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<String> fileData = getFileData("Teachers.txt");
         System.out.println(fileData);
-        makeAssignments();
+        makeGrades();
     }
 }
